@@ -15,12 +15,31 @@ public class Transaccion implements Comparable<Transaccion> {
 
     @Override
     public int compareTo(Transaccion otro) {
-        throw new UnsupportedOperationException("Implementar!");
+        int res = 0;
+        boolean mismoMonto = this.monto - otro.monto == 0;
+
+        if (mismoMonto) {
+            res = this.id - otro.id;
+        }else{
+            res = this.monto - otro.monto;
+        }
+
+        return res;
     }
 
     @Override
     public boolean equals(Object otro){
-        throw new UnsupportedOperationException("Implementar!");
+        boolean esTransaccion = otro.getClass() == this.getClass();
+        boolean igualdad = false;
+        if (esTransaccion) {
+            Transaccion oTrans = (Transaccion)otro;
+            igualdad = this.id == oTrans.id()
+                && this.id_comprador == oTrans.id_comprador() 
+                && this.id_vendedor == oTrans.id_vendedor()
+                && this.monto == oTrans.monto();
+        }
+
+        return igualdad;
     }
 
     public int monto() {
@@ -33,5 +52,9 @@ public class Transaccion implements Comparable<Transaccion> {
     
     public int id_vendedor() {
         return id_vendedor;
+    }
+
+    public int id(){
+        return id;
     }
 }

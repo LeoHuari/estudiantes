@@ -1,4 +1,8 @@
-package aed;
+package Heaps;
+
+
+import ListaDE.Nodo;
+import aed.Transaccion;
 
 public class HandleTransaccion {
     private Nodo anterior;
@@ -12,6 +16,15 @@ public class HandleTransaccion {
     }
 
     public Transaccion getValor (){
-        return this.actual.valor;
+        return ((Transaccion)this.actual.valor());
     }
+
+    public Nodo getAnterior(){
+        return this.anterior;
+    }
+
+    public Nodo getSiguiente(){
+        return this.siguiente;
+    }
+
 }
