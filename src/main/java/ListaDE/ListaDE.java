@@ -2,14 +2,7 @@ package ListaDE;
 
 public class ListaDE<T> implements Secuencia<T>{
 
-    private Nodo primero;
-
-    private class Nodo {
-        Nodo anterior;
-        T valor;
-        Nodo siguiente;
-        public Nodo(T valor){this.valor = valor;}
-    }
+    private Nodo<T> primero;
 
     public ListaDE() {
         primero = null;
@@ -17,17 +10,17 @@ public class ListaDE<T> implements Secuencia<T>{
     
     public int longitud() {
         int longitud = 0;
-        Nodo actual = primero;
+        Nodo<T> actual = primero;
         while (actual != null) {
-            actual = actual.siguiente;
+            actual = actual.getSiguiente();
             longitud++;
         }
         return longitud;
     }
 
     public void agregarAdelante(T elem) {
-        Nodo nuevo = new Nodo(elem);
-        nuevo.anterior = null;
+        Nodo<T> nuevo = new Nodo<T>(elem);
+        
         if (primero == null) {
             primero = nuevo;
         }else{

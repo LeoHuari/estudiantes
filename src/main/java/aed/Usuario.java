@@ -1,3 +1,4 @@
+package aed;
 
 public class Usuario implements Comparable<Usuario>{
     private int id;
@@ -14,6 +15,10 @@ public class Usuario implements Comparable<Usuario>{
 
     public int dinero(){
         return this.dinero;
+    }
+
+    public void setDinero(int n){
+        this.dinero = n;
     }
 
     @Override
