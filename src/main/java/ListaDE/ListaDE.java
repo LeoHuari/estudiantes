@@ -3,7 +3,7 @@ package ListaDE;
 public class ListaDE<T> implements Secuencia<T>{
 
     private Nodo<T> primero;
-
+    
     public ListaDE() {
         primero = null;
     }
