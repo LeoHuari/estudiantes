@@ -21,6 +21,10 @@ public class Nodo<T> {
         return this.siguiente;
     }
 
+    public void setValor(T valor){
+        this.valor = valor;
+    }
+
     public void setAnterior(Nodo<T> nodo){
         this.anterior = nodo;
     }
