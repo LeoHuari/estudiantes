@@ -3,9 +3,11 @@ package ListaDE;
 public class ListaDE<T> implements Secuencia<T>{
 
     private Nodo<T> primero;
+    private int longitud;
 
     public ListaDE() {
         primero = null;
+        longitud = 0;
     }
     
     public int longitud() {
@@ -15,7 +17,7 @@ public class ListaDE<T> implements Secuencia<T>{
             actual = actual.getSiguiente();
             longitud++;
         }
-        return longitud;
+        return this.longitud;
     }
 
     public void agregarAdelante(T elem) {
@@ -28,6 +30,7 @@ public class ListaDE<T> implements Secuencia<T>{
             nuevo.setSiguiente(this.primero);
             this.primero = nuevo;
         }
+        this.longitud++;
     }
 
     public void agregarAtras(T elem) {
@@ -36,6 +39,7 @@ public class ListaDE<T> implements Secuencia<T>{
         nuevo.setSiguiente(null);
         if (this.primero == null) {
             this.primero = nuevo;
+            this.longitud++;
             return;
         }
         while (actual.getSiguiente() != null) {
@@ -43,6 +47,7 @@ public class ListaDE<T> implements Secuencia<T>{
         }
         nuevo.setAnterior(actual);
         actual.setSiguiente(nuevo);
+        this.longitud++;
     }
 
     public Nodo<T> obtenerNodo(int i){
@@ -62,19 +67,24 @@ public class ListaDE<T> implements Secuencia<T>{
 
         if (this.longitud() == 1 && i == 0) {
             this.primero = null;
+            this.longitud--;
             return;
         }
         if (actual.getSiguiente() == null) {
             actual.getAnterior().setSiguiente(null);
+            this.longitud--;
             return;
         }
         if (actual.getAnterior() == null) {
             actual.getSiguiente().setAnterior(null);
             this.primero = actual.getSiguiente();
+            this.longitud--;
             return;
         }
         actual.getAnterior().setSiguiente(actual.getSiguiente());
         actual.getSiguiente().setAnterior(actual.getAnterior());
+
+        this.longitud--;
     }
 
     public void modificarPosicion(int indice, T elem) {
@@ -89,6 +99,7 @@ public class ListaDE<T> implements Secuencia<T>{
             this.agregarAtras(v);
             actual = actual.getSiguiente();
         }
+        this.longitud = lista.longitud();
     }
     
     @Override
@@ -105,43 +116,59 @@ public class ListaDE<T> implements Secuencia<T>{
 
     private class ListaIterador implements Iterador<T> {
     	private int indice;
+        private Nodo<T> actual;
 
         public ListaIterador (){
             this.indice = 0;
+            this.actual = primero;
         }
 
         public boolean haySiguiente() {
-	        boolean existeSiguiente = obtenerNodo(this.indice) != null;
+	        boolean existeSiguiente = indice < longitud;
             return existeSiguiente;
         }
         
         public boolean hayAnterior() {
-            if (longitud() == 0) {
+            if (longitud == 0) {
                 return false;
             }
-            if (longitud() == indice) {
+            if (longitud == indice) {
                 return true;
             }
-	        boolean existeAnterior = obtenerNodo(this.indice).getAnterior() != null;
+	        boolean existeAnterior = indice > 0 && indice <= longitud ;
             return existeAnterior;
         }
 
         public T siguiente() {
-            int i = this.indice;
-            this.indice = this.indice + 1;
-	        return obtener(i);
+	        return sigNodo().valor();
+        }
+
+        public Nodo<T> sigNodo(){
+            Nodo<T> res = actual;
+            if (actual.getSiguiente() != null) {
+                actual = actual.getSiguiente();
+            }
+            this.indice++;
+            return res;
         }
         
-
         public T anterior() {
-            this.indice =this.indice - 1;
-            return obtener(this.indice);
+            Nodo<T> res = null;
+            if (indice == longitud) {
+                res = actual;
+            }else{
+                res = actual.getAnterior();
+                actual = actual.getAnterior();
+            }
+            this.indice--;
+            return res.valor();
         }
     }
 
     public Iterador<T> iterador() {
 	    return new ListaIterador();
     }
+    
 }
 
 

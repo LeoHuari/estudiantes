@@ -21,6 +21,14 @@ public class Usuario implements Comparable<Usuario>{
         this.dinero = n;
     }
 
+    public void comprar(int n){
+        this.dinero = this.dinero - n;
+    }
+
+    public void vender(int n){
+        this.dinero = this.dinero + n;
+    }
+
     @Override
     public int compareTo(Usuario o) {
         int res = 0;
@@ -35,4 +43,8 @@ public class Usuario implements Comparable<Usuario>{
         return res;
     }
 
+    @Override
+    public String toString(){
+        return "id = "+id+"; dinero = "+dinero;
+    }
 }

@@ -2,6 +2,8 @@ package Heaps;
 
 import java.util.ArrayList;
 
+import ListaDE.*;
+
 public class Heap<T extends Comparable<T>> {
 
     private ArrayList<T> cola;
@@ -15,6 +17,17 @@ public class Heap<T extends Comparable<T>> {
         this.cola = new ArrayList<>(cantElems);
         for (int i = 0; i < cantElems; i++) {
             this.cola.add(array[i]);
+        }
+        for (int i = this.cola.size() / 2 - 1; i >= 0; i--) {
+            this.bajar(i);
+        }
+    }
+
+    public Heap(ArrayList<T> lista){
+        int cantElems = lista.size();
+        this.cola = new ArrayList<>(cantElems);
+        for(int i = 0; i < cantElems; i++){
+            this.cola.add(lista.get(i));
         }
         for (int i = this.cola.size() / 2 - 1; i >= 0; i--) {
             this.bajar(i);

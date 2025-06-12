@@ -24,4 +24,10 @@ public interface Iterador<T> {
      * 
      */
     public T anterior();
+
+    /**
+     * Devuelve el Nodo siguiente en la colección y avanza el iterador.
+     * 
+     */
+    public Nodo<T> sigNodo();
 }

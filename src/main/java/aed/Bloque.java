@@ -1,10 +1,12 @@
 package aed;
 
+import ListaDE.ListaDE;
+
 public class Bloque {
     private int id;
-    private Transaccion[] transacciones;
+    private ListaDE<Transaccion> transacciones;
 
-    public Bloque(int id, Transaccion[] lista){
+    public Bloque(int id, ListaDE<Transaccion> lista){
         this.id = id;
         this.transacciones = lista;
     }

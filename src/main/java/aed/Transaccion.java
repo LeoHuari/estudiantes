@@ -57,4 +57,9 @@ public class Transaccion implements Comparable<Transaccion> {
     public int id(){
         return id;
     }
+
+    @Override
+    public String toString(){
+        return "id = "+id+"-comprador = "+id_comprador+" -vendedor = "+id_vendedor+" -monto = "+monto;
+    }
 }
