@@ -9,8 +9,9 @@ public class Berretacoin {
     private Heap<Usuario> heapUsuarios;
     private ArrayList<HandleHeap<Usuario>> handlesUsers;
     private Heap<HandleListaDE<Transaccion>> heapTransacciones;
-    private ListaDE<Transaccion> listaDEOrdenadaT;
-
+    private ListaDE<Transaccion> listaTransOrdenadas;
+    private Double promedio;
+    private ListaDE<Bloque> blockchain;
 
     public Berretacoin(int n_usuarios){
         throw new UnsupportedOperationException("Implementar!");
