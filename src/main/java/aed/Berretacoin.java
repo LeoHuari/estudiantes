@@ -1,6 +1,16 @@
 package aed;
 
+import java.util.ArrayList;
+
+import Heaps.*;
+import ListaDE.ListaDE;
+
 public class Berretacoin {
+    private Heap<Usuario> heapUsuarios;
+    private ArrayList<HandleHeap<Usuario>> handlesUsers;
+    private Heap<HandleListaDE<Transaccion>> heapTransacciones;
+    private ListaDE<Transaccion> listaDEOrdenadaT;
+
 
     public Berretacoin(int n_usuarios){
         throw new UnsupportedOperationException("Implementar!");

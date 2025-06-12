@@ -1,7 +1,6 @@
 package Heaps;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Heap<T extends Comparable<T>> {
 
@@ -16,9 +15,7 @@ public class Heap<T extends Comparable<T>> {
         this.cola = new ArrayList<>(cantElems);
         for (int i = 0; i < cantElems; i++) {
             this.cola.add(array[i]);
-            System.out.println(array[i]);
         }
-        System.out.println(this.cola);
         for (int i = this.cola.size() / 2 - 1; i >= 0; i--) {
             this.bajar(i);
         }
