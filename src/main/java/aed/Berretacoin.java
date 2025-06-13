@@ -24,6 +24,7 @@ public class Berretacoin {
             lista[i] = user;
         }
         this.heapUsuarios = new Heap<>(lista);
+        this.blockchain = new ListaDE<Bloque>();
     }
 
     public void agregarBloque(Transaccion[] transacciones){
@@ -57,6 +58,7 @@ public class Berretacoin {
         this.heapTransacciones = new Heap<>(lista);
 
         Bloque b = new Bloque(this.blockchain.longitud(), this.listaTransOrdenadas);
+        this.blockchain.agregarAtras(b);
     }
 
     public Transaccion txMayorValorUltimoBloque(){
