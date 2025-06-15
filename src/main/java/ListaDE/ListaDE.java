@@ -11,12 +11,6 @@ public class ListaDE<T> implements Secuencia<T>{
     }
     
     public int longitud() {
-        int longitud = 0;
-        Nodo<T> actual = primero;
-        while (actual != null) {
-            actual = actual.getSiguiente();
-            longitud++;
-        }
         return this.longitud;
     }
 

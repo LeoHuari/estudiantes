@@ -3,11 +3,12 @@ package aed;
 import java.util.ArrayList;
 
 import Heaps.*;
+import Heaps.Heap.HandleHeap;
 import ListaDE.*;
 
 public class Berretacoin {
     private Heap<Usuario> heapUsuarios;
-    private HandleHeap<Usuario>[] handlerUsers;
+    private ArrayList<Heap<Usuario>.HandleHeap> handlerUsers;
     private Heap<HandleListaDE<Transaccion>> heapTransacciones;
     private ListaDE<Transaccion> listaTransOrdenadas;
     private Double promedio;
@@ -15,15 +16,15 @@ public class Berretacoin {
 
     public Berretacoin(int n_usuarios){
         Usuario[] lista = new Usuario[n_usuarios];
-        this.handlerUsers = new HandleHeap[n_usuarios];
         
         for(int i = 0; i < n_usuarios; i++){
             Usuario user = new Usuario(i+1);
-            HandleHeap<Usuario> hu = new HandleHeap<Usuario>(i, user);
-            this.handlerUsers[i] = hu;
             lista[i] = user;
         }
+        
         this.heapUsuarios = new Heap<>(lista);
+        this.handlerUsers = heapUsuarios.getHandles();
+        
         this.blockchain = new ListaDE<Bloque>();
     }
 
@@ -37,11 +38,11 @@ public class Berretacoin {
             monto = transacciones[i].monto();
             if (transacciones[i].id_comprador() != 0) {
                 id_comprador = transacciones[i].id_comprador();
-                handlerUsers[id_comprador-1].getValor().comprar(monto);
+                //handlerUsers[id_comprador-1].getValor().comprar(monto);
                 //heapUsuarios.actualizar(handlerUsers[id_comprador]);
             }
             id_vendedor = transacciones[i].id_vendedor();
-            handlerUsers[id_vendedor-1].getValor().vender(monto);
+            //handlerUsers[id_vendedor-1].getValor().vender(monto);
             //heapUsuarios.actualizar(handlerUsers[id_vendedor]);
         }
 
@@ -89,5 +90,9 @@ public class Berretacoin {
 
     public ArrayList<HandleListaDE<Transaccion>> getHeapTransacciones(){
         return this.heapTransacciones.getHeap();
+    }
+
+    public ArrayList<Heap<Usuario>.HandleHeap> getHandleUsers(){
+        return this.handlerUsers;
     }
 }
