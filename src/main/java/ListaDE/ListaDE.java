@@ -32,7 +32,6 @@ public class ListaDE<T> implements Secuencia<T>{
 
     public void agregarAtras(T elem) {
         Nodo<T> nuevo = new Nodo<T>(elem);
-        //Nodo<T> actual = this.ultimo;
         nuevo.setSiguiente(null);
         if (this.primero == null) {
             this.primero = nuevo;
@@ -41,13 +40,7 @@ public class ListaDE<T> implements Secuencia<T>{
             this.ultimo.setSiguiente(nuevo);
             nuevo.setAnterior(this.ultimo);
             ultimo = nuevo;
-        }/* 
-        while (actual.getSiguiente() != null) {
-            actual = actual.getSiguiente();
         }
-        nuevo.setAnterior(actual);
-        actual.setSiguiente(nuevo);
-        */
         this.longitud++;
     }
 

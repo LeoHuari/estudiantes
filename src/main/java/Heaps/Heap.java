@@ -61,12 +61,18 @@ public class Heap<T extends Comparable<T>> {
         HandleHeap handleHijo = this.colaHandle.get(index);
         HandleHeap handlePadre = this.colaHandle.get(indexPadre);
         while (index > 0 && hijo.compareTo(padre) > 0) {
+            handleHijo.setIndice(indexPadre);
+            handlePadre.setIndice(index);
+
             this.colaHandle.set(index, handlePadre);
             this.colaHandle.set(indexPadre, handleHijo);
+
             this.cola.set(index, padre);
             this.cola.set(indexPadre, hijo);
+
             index = indexPadre;
             indexPadre = (index - 1) / 2;
+            
             handlePadre = this.colaHandle.get(indexPadre);
             padre = this.cola.get(indexPadre);
         }
