@@ -13,7 +13,9 @@ public class Berretacoin {
     private int suma;
     private int cantTransacciones;
     private ListaDE<Bloque> blockchain;
-
+    /*
+     * Creacion de un array de n usuarios O(n), y luego hacer heapify con el algoritmo de floyd mantiene O(n)
+     */
     public Berretacoin(int n_usuarios){
         Usuario[] lista = new Usuario[n_usuarios];
         
@@ -32,6 +34,13 @@ public class Berretacoin {
         this.cantTransacciones = 0;
     }
 
+    /*
+     * Por cada transaccion(t) se la agrega a una lista doblemente enlazada O(1) y se actualiza los montos de los usuarios O(log n)
+     * Ademas por cada transaccion se suman los montos y se cuentan la cantidad de transacciones O(1)
+     * Luego utilizando la lista enlazada de transacciones se crean handles de los nodos y se los añade a un ArrayList O(t)
+     * Utilizando este array se crea un heap de handles de transacciones, costando O(t) por el algoritmo de floyd
+     * Esto da O(t*log n) + O(t) + O(t) que es lo mismo que O(t*log n)
+     */
     public void agregarBloque(Transaccion[] transacciones){
         this.listaTransOrdenadas = new ListaDE<Transaccion>();
         int id_comprador = 0;
@@ -96,10 +105,17 @@ public class Berretacoin {
         this.blockchain.agregarAtras(b);
     }
 
+    /*
+     * Utilizando un maxheap de transacciones ordenadas por montos se cosigue O(1)
+     */
     public Transaccion txMayorValorUltimoBloque(){
         return this.heapTransacciones.ver().getValor();
     }
 
+    /*
+     * Teniendo ya la lista enlazada ordenada de transacciones solo se necesita crear una copia
+     * Lo cual cuesta O(t)
+     */
     public Transaccion[] txUltimoBloque(){
 
         int longitud = this.listaTransOrdenadas.longitud();
@@ -116,10 +132,16 @@ public class Berretacoin {
         return res;
     }
 
+    /*
+     * Utilizando un maxheap de usuarios ordenados por monto se consigue O(1)
+     */
     public int maximoTenedor(){
         return this.heapUsuarios.ver().id();
     }
 
+    /*
+     * Habiendo llevado el conteo de transacciones y sus montos previamente se logra O(1) haciendo una simple operacion matematica
+     */
     public int montoMedioUltimoBloque(){
         int promedio = 0;
         if (cantTransacciones != 0) {
@@ -128,6 +150,13 @@ public class Berretacoin {
         return promedio;
     }
 
+    /*
+     * Al haber utilizado un heap de handles de transacciones podemos extraer la mayor transacciones en O(log t)
+     * Al tener los handles de los usuarios podemos actualizar sus montos en O(log n)
+     * Ademas al haber utilizando handles de listas enlazadas que contienen nodos de transacciones
+     * Se puede utilizar el nodo para realizar una eliminacion en O(1)
+     * Dando como resultado O(log t) + O(log n) + O(1) que es lo mismo que O(log t + log n)
+     */
     public void hackearTx(){
         HandleListaDE<Transaccion> handle = this.heapTransacciones.extraer();
 
