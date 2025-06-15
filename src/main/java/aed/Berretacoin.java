@@ -156,21 +156,5 @@ public class Berretacoin {
         this.listaTransOrdenadas.eliminarNodo(handle.getNodo());
     }
 
-    //Metodos auxiliares
 
-    public ArrayList<Usuario> getHeapUsuarios(){
-        return this.heapUsuarios.getHeap();
-    }
-
-    public Heap<Usuario> getHeap(){
-        return this.heapUsuarios;
-    }
-
-    public ArrayList<HandleListaDE<Transaccion>> getHeapTransacciones(){
-        return this.heapTransacciones.getHeap();
-    }
-
-    public ArrayList<Heap<Usuario>.HandleHeap> getHandleUsers(){
-        return this.handlerUsers;
-    }
 }

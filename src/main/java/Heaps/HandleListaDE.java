@@ -23,8 +23,4 @@ public class HandleListaDE<T extends Comparable<T>> implements Handle, Comparabl
         return this.getValor().compareTo(o.getValor());
     }
 
-    @Override
-    public String toString(){
-        return this.getValor().toString();
-    }
 }

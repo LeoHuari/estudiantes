@@ -43,8 +43,4 @@ public class Usuario implements Comparable<Usuario>{
         return res;
     }
 
-    @Override
-    public String toString(){
-        return "id = "+id+"; dinero = "+dinero;
-    }
 }

@@ -184,10 +184,6 @@ public class Heap<T extends Comparable<T>> {
             this.valor = v;
         }
 
-        @Override
-        public String toString(){
-            return "indice = "+indice+"- valor {"+valor+"}";
-        }
     }
 
 }
