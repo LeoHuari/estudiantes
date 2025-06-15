@@ -3,7 +3,6 @@ package aed;
 import java.util.ArrayList;
 
 import Heaps.*;
-import Heaps.Heap.HandleHeap;
 import ListaDE.*;
 
 public class Berretacoin {
@@ -39,6 +38,7 @@ public class Berretacoin {
             if (transacciones[i].id_comprador() != 0) {
                 id_comprador = transacciones[i].id_comprador();
                 //handlerUsers[id_comprador-1].getValor().comprar(monto);
+
                 //heapUsuarios.actualizar(handlerUsers[id_comprador]);
             }
             id_vendedor = transacciones[i].id_vendedor();
@@ -86,6 +86,10 @@ public class Berretacoin {
 
     public ArrayList<Usuario> getHeapUsuarios(){
         return this.heapUsuarios.getHeap();
+    }
+
+    public Heap<Usuario> getHeap(){
+        return this.heapUsuarios;
     }
 
     public ArrayList<HandleListaDE<Transaccion>> getHeapTransacciones(){

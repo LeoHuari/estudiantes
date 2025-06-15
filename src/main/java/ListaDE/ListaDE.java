@@ -3,10 +3,12 @@ package ListaDE;
 public class ListaDE<T> implements Secuencia<T>{
 
     private Nodo<T> primero;
+    private Nodo<T> ultimo;
     private int longitud;
 
     public ListaDE() {
         primero = null;
+        ultimo = null;
         longitud = 0;
     }
     
@@ -19,6 +21,7 @@ public class ListaDE<T> implements Secuencia<T>{
 
         if (primero == null) {
             primero = nuevo;
+            ultimo = nuevo;
         }else{
             this.primero.setAnterior(nuevo);
             nuevo.setSiguiente(this.primero);
@@ -29,18 +32,22 @@ public class ListaDE<T> implements Secuencia<T>{
 
     public void agregarAtras(T elem) {
         Nodo<T> nuevo = new Nodo<T>(elem);
-        Nodo<T> actual = this.primero;
+        //Nodo<T> actual = this.ultimo;
         nuevo.setSiguiente(null);
         if (this.primero == null) {
             this.primero = nuevo;
-            this.longitud++;
-            return;
-        }
+            this.ultimo = nuevo;
+        }else{
+            this.ultimo.setSiguiente(nuevo);
+            nuevo.setAnterior(this.ultimo);
+            ultimo = nuevo;
+        }/* 
         while (actual.getSiguiente() != null) {
             actual = actual.getSiguiente();
         }
         nuevo.setAnterior(actual);
         actual.setSiguiente(nuevo);
+        */
         this.longitud++;
     }
 

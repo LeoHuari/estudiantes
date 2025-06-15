@@ -101,8 +101,13 @@ public class Heap<T extends Comparable<T>> {
 
     public T extraer(){
         T res = this.cola.get(0);
-        this.cola.set(0, this.cola.get(this.cola.size() - 1));
-        this.cola.remove(this.cola.size() - 1);
+        int ultimoIndice = this.cola.size()-1;
+        HandleHeap ultimoHandle = this.colaHandle.get(ultimoIndice);
+        //Agarra el ultimo elemento, lo mueve a la primera posicion y elimina la ultima posicion
+        this.colaHandle.set(0, ultimoHandle);
+        this.colaHandle.remove(ultimoIndice);
+        this.cola.set(0, this.cola.get(ultimoIndice));
+        this.cola.remove(ultimoIndice);
         this.bajar(0);
         return res;
     }
