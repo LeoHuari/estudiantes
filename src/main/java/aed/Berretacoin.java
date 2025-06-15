@@ -10,7 +10,8 @@ public class Berretacoin {
     private ArrayList<Heap<Usuario>.HandleHeap> handlerUsers;
     private Heap<HandleListaDE<Transaccion>> heapTransacciones;
     private ListaDE<Transaccion> listaTransOrdenadas;
-    private int promedio;
+    private int suma;
+    private int cantTransacciones;
     private ListaDE<Bloque> blockchain;
 
     public Berretacoin(int n_usuarios){
@@ -27,7 +28,8 @@ public class Berretacoin {
         
         this.blockchain = new ListaDE<Bloque>();
 
-        this.promedio = 0;
+        this.suma = 0;
+        this.cantTransacciones = 0;
     }
 
     public void agregarBloque(Transaccion[] transacciones){
@@ -35,13 +37,13 @@ public class Berretacoin {
         int id_comprador = 0;
         int id_vendedor = 0;
         int monto = 0;
-        int cantTransacciones = 0;
-        int suma = 0;
+        this.cantTransacciones = 0;
+        this.suma = 0;
         /*
         Se agregan las transacciones a listaTransOrdenadas(Lista de transacciones enlazada ordenada)
         Utilizando los handles se actualiza el dinero de los usuarios de acuerdo a la accion realizada
         y se actualiza su posicion en el heap
-        Al mismo tiempo se lleva acabo el calculo del promedio de montos de transacciones
+        Al mismo tiempo se lleva el conteo de transacciones y la suma de montos
         */
         for(int i = 0; i<transacciones.length; i++){
 
@@ -58,8 +60,8 @@ public class Berretacoin {
 
                 this.heapUsuarios.actualizar(handle_user);
 
-                suma = suma + transacciones[i].monto();
-                cantTransacciones++;
+                this.suma = this.suma + transacciones[i].monto();
+                this.cantTransacciones++;
             }
 
             id_vendedor = transacciones[i].id_vendedor();
@@ -71,11 +73,7 @@ public class Berretacoin {
 
             
         }
-        if (cantTransacciones == 0) {
-            promedio = 0;
-        }else{
-            promedio = suma / cantTransacciones;
-        }
+        
         
         /*
         Utilizando un iterador de recorre la lista enlazada de transacciones creando handles para cada nodo
@@ -87,7 +85,7 @@ public class Berretacoin {
 
         while (iterador.haySiguiente()) {
             Nodo<Transaccion> nodoTransaccion = iterador.sigNodo();
-            HandleListaDE<Transaccion> handleTransaccion = new HandleListaDE<>(nodoTransaccion.getAnterior(), nodoTransaccion.getSiguiente(), nodoTransaccion);
+            HandleListaDE<Transaccion> handleTransaccion = new HandleListaDE<>(nodoTransaccion);
             lista.add(handleTransaccion);
         }
 
@@ -123,11 +121,39 @@ public class Berretacoin {
     }
 
     public int montoMedioUltimoBloque(){
+        int promedio = 0;
+        if (cantTransacciones != 0) {
+            promedio = suma / cantTransacciones;
+        }
         return promedio;
     }
 
     public void hackearTx(){
-        throw new UnsupportedOperationException("Implementar!");
+        HandleListaDE<Transaccion> handle = this.heapTransacciones.extraer();
+
+        Transaccion t = handle.getValor();
+        int monto = t.monto();
+        int id_comprador = t.id_comprador();
+        int id_vendedor = t.id_vendedor();
+
+        //Se devuelve el monto de la transaccion a los usuarios correspondientes
+        if (id_comprador != 0) {
+            Heap<Usuario>.HandleHeap handleComprador = this.handlerUsers.get(id_comprador-1);
+            handleComprador.getValor().vender(monto);
+            this.heapUsuarios.actualizar(handleComprador);
+        }
+        
+        Heap<Usuario>.HandleHeap handleVendedor = this.handlerUsers.get(id_vendedor-1);
+        handleVendedor.getValor().comprar(monto);
+        this.heapUsuarios.actualizar(handleVendedor);
+
+        if (cantTransacciones != 0) {
+            this.suma = this.suma - monto;
+            this.cantTransacciones--;
+        }
+
+        //Eliminacion de la transaccion utilizando los nodos guardados en el handle
+        this.listaTransOrdenadas.eliminarNodo(handle.getNodo());
     }
 
     //Metodos auxiliares

@@ -39,7 +39,7 @@ public class ListaDE<T> implements Secuencia<T>{
         }else{
             this.ultimo.setSiguiente(nuevo);
             nuevo.setAnterior(this.ultimo);
-            ultimo = nuevo;
+            this.ultimo = nuevo;
         }
         this.longitud++;
     }
@@ -78,6 +78,24 @@ public class ListaDE<T> implements Secuencia<T>{
         actual.getAnterior().setSiguiente(actual.getSiguiente());
         actual.getSiguiente().setAnterior(actual.getAnterior());
 
+        this.longitud--;
+    }
+    //Notar que si el nodo no pertece a la lista se rompe la longitud
+    public void eliminarNodo(Nodo<T> nodo){
+        Nodo<T> anterior = nodo.getAnterior();
+        Nodo<T> siguiente = nodo.getSiguiente();
+        if (longitud == 1) {
+            this.primero = null;
+            this.ultimo = null;
+            this.longitud--;
+            return;
+        }
+        if (anterior != null) {
+            anterior.setSiguiente(siguiente);
+        }
+        if (siguiente != null) {
+            siguiente.setAnterior(anterior);
+        }
         this.longitud--;
     }
 

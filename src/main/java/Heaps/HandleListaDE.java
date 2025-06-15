@@ -4,13 +4,9 @@ package Heaps;
 import ListaDE.Nodo;
 
 public class HandleListaDE<T extends Comparable<T>> implements Handle, Comparable<HandleListaDE<T>>{
-    private Nodo<T> anterior;
-    private Nodo<T> siguiente;
     private Nodo<T> actual;
     
-    public HandleListaDE(Nodo<T> anterior, Nodo<T> siguiente, Nodo<T> actual){
-        this.anterior = anterior;
-        this.siguiente = siguiente;
+    public HandleListaDE(Nodo<T> actual){
         this.actual = actual;
     }
 
@@ -18,12 +14,8 @@ public class HandleListaDE<T extends Comparable<T>> implements Handle, Comparabl
         return this.actual.valor();
     }
 
-    public Nodo<T> getAnterior(){
-        return this.anterior;
-    }
-
-    public Nodo<T> getSiguiente(){
-        return this.siguiente;
+    public Nodo<T> getNodo(){
+        return actual;
     }
 
     @Override
